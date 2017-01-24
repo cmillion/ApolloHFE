@@ -731,7 +731,7 @@ T[28845:28912] = 2*bins[0]-T[28845:28912] # END
 
 plt.close('all')
 plt.figure()
-plt.plot(T,'.')
+plt.plot(Time,T,'.')
 plt.ylim([-4,5])
 plt.xlabel('Time')
 plt.ylabel('Temp')
