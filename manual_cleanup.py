@@ -281,7 +281,7 @@ T[12293:12305] = 2*bins[3]-T[12293:12305]
 T[12305:12315] = 2*bins[4]-T[12305:12315]
 T[12315:12318] = 2*bins[5]-T[12315:12318]
 T[12318:12320] = 2*bins[6]-T[12318:12320]
-T[12320:12321] = T[12320:12321] # Ambiguous.
+T[12320:12321] = 2*bins[7]-T[12320:12321] # Ambiguous.
 T[12321:12730] = T[12321:12730] # >0
 T[12730:12731] = 2*bins[-3]-T[12730:12731] # Ambiguous.
 T[12731:12732] = 2*bins[-4]-T[12731:12732] # Ambiguous.
@@ -729,10 +729,20 @@ T[28820:28828] = 2*bins[-8]-T[28820:28828]
 T[28828:28845] = 2*bins[-9]-T[28828:28845]
 T[28845:28912] = 2*bins[0]-T[28845:28912] # END
 
-#plt.close('all')
-#plt.figure()
-plt.plot(Time,T,'.')
+plt.close('all')
+plt.figure()
+plt.plot(T,'.')
 plt.ylim([-4,5])
 plt.xlabel('Time')
 plt.ylabel('Temp')
 plot_rollovers()
+
+import csv
+a = np.array(data['a15']['p1'][1]['T'])
+a[ix]=T
+b = np.vstack((np.array(data['a15']['p1'][1]['Time']),a,
+                                        np.array(data['a15']['p1'][1]['dT'])))
+outfile = 'a15p1.file_1.corrected'
+spreadsheet = csv.writer(open(outfile, 'w'), delimiter=' ',
+                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
+spreadsheet.writerows(b.T)
